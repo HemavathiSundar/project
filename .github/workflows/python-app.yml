@@ -39,3 +39,13 @@ jobs:
         pip install pytest
         export PYTHONPATH=src
         pytest
+    - name: Deploy to Heroku
+      env: 
+          HEROKU_API_TOKEN: 34522335-29dc-4640-b478-c224adf77897
+          HEROKU_APP_NAME: mighty-oasis-40982
+      if: github.ref == 'refs/heads/main' && job.status == 'success'
+      run: |
+          git remote add heroku 34522335-29dc-4640-b478-c224adf77897 https://git.heroku.com/mighty-oasis-40982.git
+          git push heroku HEAD:main -f
+
+          
