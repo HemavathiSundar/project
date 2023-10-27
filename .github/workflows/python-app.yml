@@ -5,9 +5,9 @@ name: Python application
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 permissions:
   contents: read
@@ -19,6 +19,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - run: |
+       git fetch --prune --unshallow
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
@@ -43,9 +45,9 @@ jobs:
       env: 
           HEROKU_API_TOKEN: 34522335-29dc-4640-b478-c224adf77897
           HEROKU_APP_NAME: mighty-oasis-40982
-      if: github.ref == 'refs/heads/main' && job.status == 'success'
+      if: github.ref == 'refs/heads/master' && job.status == 'success'
       run: |
           git remote add heroku https://heroku:34522335-29dc-4640-b478-c224adf77897@git.heroku.com/mighty-oasis-40982.git
-          git push heroku HEAD:main -f
+          git push heroku HEAD:master -f
 
           
