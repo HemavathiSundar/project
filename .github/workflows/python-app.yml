@@ -5,9 +5,9 @@ name: Python application
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -42,12 +42,12 @@ jobs:
         export PYTHONPATH=src
         pytest
     - name: Deploy to Heroku
-      env: 
+      env:
           HEROKU_API_TOKEN: 34522335-29dc-4640-b478-c224adf77897
           HEROKU_APP_NAME: mighty-oasis-40982
-      if: github.ref == 'refs/heads/master' && job.status == 'success'
+      if: github.ref == 'refs/heads/main' && job.status == 'success'
       run: |
           git remote add heroku https://heroku:34522335-29dc-4640-b478-c224adf77897@git.heroku.com/mighty-oasis-40982.git
-          git push heroku HEAD:master -f
+          git push heroku HEAD:main -f
 
           
